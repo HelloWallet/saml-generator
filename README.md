@@ -23,7 +23,7 @@ You will need to create the jar file in order to use the command line tool. cd t
 Usage
 -----
 
-java -jar saml-generator-1.0.jar [-domain <arg>] [-issuer <arg>] [-privateKey <arg>] [-publicKey <arg>] [-roles <arg>] [-email <arg>] [-samlAssertionExpirationDays <arg>] [-subject <arg>]
+`java -jar saml-generator-1.0.jar [-domain <arg>] [-issuer <arg>] [-privateKey <arg>] [-publicKey <arg>] [-roles <arg>] [-email <arg>] [-samlAssertionExpirationDays <arg>] [-subject <arg>] [-destination <arg>] [-clientId <arg>]`
 
 ```
 -issuer
@@ -49,6 +49,13 @@ The path to the location of the private key to use to sign assertions
 
 -samlAssertionExpirationDays
 How long before the assertion is no longer valid
+
+-destination
+Destination for saml response, the Recipient for the Subject, and the Audience of the Assertion Conditions
+
+-clientId
+The clientId for saml assertion attribute
+
 ```
 
 Example

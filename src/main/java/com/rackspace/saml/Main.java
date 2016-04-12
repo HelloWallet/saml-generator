@@ -26,6 +26,7 @@ public class Main {
 			String privateKey = null;
 			String publicKey = null;
 			Integer samlAssertionExpirationDays = null;
+			String destination = null;
 			
 			Options options = new Options();
 			options.addOption("issuer", true, "Issuer for saml assertion");
@@ -36,6 +37,8 @@ public class Main {
 			options.addOption("publicKey", true, "Location of public key to decrypt assertion");
 			options.addOption("privateKey", true, "Location or private key use to sign assertion");
 			options.addOption("samlAssertionExpirationDays", true, "How long before assertion is no longer valid. Can be negative.");
+			options.addOption("destination", true, "Destination for saml response");
+			options.addOption("clientId", true, "clientId for saml assertion attribute");
 			
 			CommandLineParser parser = new GnuParser();
 			CommandLine cmd = parser.parse(options, args);
@@ -50,6 +53,7 @@ public class Main {
 			subject = cmd.getOptionValue("subject");
 			privateKey = cmd.getOptionValue("privateKey");
 			publicKey = cmd.getOptionValue("publicKey");
+			destination = cmd.getOptionValue("destination");
 
 			samlAssertionExpirationDays = cmd.getOptionValue("samlAssertionExpirationDays") != null ? Integer.valueOf(cmd.getOptionValue("samlAssertionExpirationDays")) : null;
 			
@@ -62,11 +66,14 @@ public class Main {
             if (cmd.getOptionValue("email") != null)
                 attributes.put("email", Arrays.asList(cmd.getOptionValue("email")));
 
+            if (cmd.getOptionValue("clientId") != null)
+                attributes.put("clientId", Arrays.asList(cmd.getOptionValue("clientId")));
+
 			SamlAssertionProducer producer = new SamlAssertionProducer();
 			producer.setPrivateKeyLocation(privateKey);
 			producer.setPublicKeyLocation(publicKey);
 			
-			Response responseInitial = producer.createSAMLResponse(subject, new DateTime(), "password", attributes, issuer, samlAssertionExpirationDays);
+			Response responseInitial = producer.createSAMLResponse(subject, new DateTime(), "password", attributes, issuer, samlAssertionExpirationDays, destination);
 			
 			ResponseMarshaller marshaller = new ResponseMarshaller();
 			Element element = marshaller.marshall(responseInitial);
