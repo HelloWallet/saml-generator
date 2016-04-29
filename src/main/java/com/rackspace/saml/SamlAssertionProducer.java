@@ -28,8 +28,8 @@ public class SamlAssertionProducer {
 	private CertManager certManager = new CertManager();
 	
 	public Response createSAMLResponse(final String subjectId, final DateTime authenticationTime,
-			                           final String credentialType, final HashMap<String, List<String>> attributes, 
-									   String issuer, Integer samlAssertionDays, String destination) {
+									   final String credentialType, final HashMap<String, List<String>> attributes,
+									   String issuer, Integer samlAssertionDays, String destination, String audience) {
 		
 		try {
 			DefaultBootstrap.bootstrap();
@@ -57,8 +57,11 @@ public class SamlAssertionProducer {
 			
 			AuthnStatement authnStatement = createAuthnStatement(authenticationTime);
 
-			if (destination != null) {
-				conditions = createConditions(destination);
+			if (audience == null) {
+				audience = destination;
+			}
+			if (audience != null) {
+				conditions = createConditions(audience);
 			}
 
 			Assertion assertion = createAssertion(new DateTime(), subject, assertionIssuer, authnStatement, attributeStatement, conditions);

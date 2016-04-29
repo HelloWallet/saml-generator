@@ -50,8 +50,11 @@ The path to the location of the private key to use to sign assertions
 -samlAssertionExpirationDays
 How long before the assertion is no longer valid
 
+-audience
+The Audience of the Assertion Conditions
+ 
 -destination
-Destination for saml response, the Recipient for the Subject, and the Audience of the Assertion Conditions
+Destination for saml response, the Recipient for the Subject, and the Audience of the Assertion Conditions if -audience isn't set
 
 -clientId
 The clientId for saml assertion attribute

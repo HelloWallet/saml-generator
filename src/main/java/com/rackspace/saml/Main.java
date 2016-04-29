@@ -27,6 +27,7 @@ public class Main {
 			String publicKey = null;
 			Integer samlAssertionExpirationDays = null;
 			String destination = null;
+			String audience = null;
 			
 			Options options = new Options();
 			options.addOption("issuer", true, "Issuer for saml assertion");
@@ -38,6 +39,7 @@ public class Main {
 			options.addOption("privateKey", true, "Location or private key use to sign assertion");
 			options.addOption("samlAssertionExpirationDays", true, "How long before assertion is no longer valid. Can be negative.");
 			options.addOption("destination", true, "Destination for saml response");
+			options.addOption("audience", false, "Audience for saml response. Defaults to destination if not set.");
 			options.addOption("clientId", true, "clientId for saml assertion attribute");
 			
 			CommandLineParser parser = new GnuParser();
@@ -54,6 +56,7 @@ public class Main {
 			privateKey = cmd.getOptionValue("privateKey");
 			publicKey = cmd.getOptionValue("publicKey");
 			destination = cmd.getOptionValue("destination");
+			audience = cmd.getOptionValue("audience");
 
 			samlAssertionExpirationDays = cmd.getOptionValue("samlAssertionExpirationDays") != null ? Integer.valueOf(cmd.getOptionValue("samlAssertionExpirationDays")) : null;
 			
@@ -73,7 +76,7 @@ public class Main {
 			producer.setPrivateKeyLocation(privateKey);
 			producer.setPublicKeyLocation(publicKey);
 			
-			Response responseInitial = producer.createSAMLResponse(subject, new DateTime(), "password", attributes, issuer, samlAssertionExpirationDays, destination);
+			Response responseInitial = producer.createSAMLResponse(subject, new DateTime(), "password", attributes, issuer, samlAssertionExpirationDays, destination, audience);
 			
 			ResponseMarshaller marshaller = new ResponseMarshaller();
 			Element element = marshaller.marshall(responseInitial);
