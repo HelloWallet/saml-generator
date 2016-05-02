@@ -57,9 +57,6 @@ public class SamlAssertionProducer {
 			
 			AuthnStatement authnStatement = createAuthnStatement(authenticationTime);
 
-			if (audience == null) {
-				audience = destination;
-			}
 			if (audience != null) {
 				conditions = createConditions(audience);
 			}

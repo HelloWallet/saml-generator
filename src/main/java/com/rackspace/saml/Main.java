@@ -39,7 +39,7 @@ public class Main {
 			options.addOption("privateKey", true, "Location or private key use to sign assertion");
 			options.addOption("samlAssertionExpirationDays", true, "How long before assertion is no longer valid. Can be negative.");
 			options.addOption("destination", true, "Destination for saml response");
-			options.addOption("audience", false, "Audience for saml response. Defaults to destination if not set.");
+			options.addOption("audience", true, "Audience for saml response. Defaults to destination if not set.");
 			options.addOption("clientId", true, "clientId for saml assertion attribute");
 			
 			CommandLineParser parser = new GnuParser();
@@ -47,7 +47,7 @@ public class Main {
 
 			if (args.length == 0) {
 				HelpFormatter formatter = new HelpFormatter();
-				formatter.printHelp( "saml-util-1.0", options, true);
+				formatter.printHelp( "saml-generator-1.0", options, true);
 				System.exit(1);
 			}
 		

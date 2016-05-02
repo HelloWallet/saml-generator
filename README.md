@@ -54,7 +54,7 @@ How long before the assertion is no longer valid
 The Audience of the Assertion Conditions
  
 -destination
-Destination for saml response, the Recipient for the Subject, and the Audience of the Assertion Conditions if -audience isn't set
+Destination for saml response and the Recipient for the Subject
 
 -clientId
 The clientId for saml assertion attribute
